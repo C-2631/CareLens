@@ -619,6 +619,34 @@ export const adminApi = {
   }
 };
 
+export const recommendApi = {
+  getPresets: async () => {
+    try {
+      const res = await apiClient.get('/recommend/presets');
+      return res.data;
+    } catch (err) {
+      return { status: 'SUCCESS', total: 0, presets: [] };
+    }
+  },
+  getStudioRecommendations: async (payload) => {
+    try {
+      const res = await apiClient.post('/recommend/studio', payload);
+      return res.data;
+    } catch (err) {
+      return null;
+    }
+  },
+  simulate: async (payload) => {
+    try {
+      const res = await apiClient.post('/recommend/simulate', payload);
+      return res.data;
+    } catch (err) {
+      return null;
+    }
+  },
+  getRecommendations: api.getRecommendations
+};
+
 export const mlApi = {
   predictDisease: api.predictDisease,
   getSymptomsList: api.getSymptomsList,
@@ -627,3 +655,4 @@ export const mlApi = {
 };
 
 export default api;
+

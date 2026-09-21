@@ -79,9 +79,79 @@ def run_tests():
     meds = res.json().get("recommendations", [])
     print(f"Recommended medications: {[m['name'] for m in meds]}")
 
+    print("\n--- 9. Testing Clinical Recommendation Presets ---")
+    res = client.get("/recommend/presets")
+    assert res.status_code == 200
+    presets = res.json().get("presets", [])
+    print(f"Retrieved {len(presets)} clinical presets: {[p['title'] for p in presets]}")
+    assert len(presets) >= 4
+
+    print("\n--- 10. Testing Full AI Recommendation Studio Pipeline ---")
+    studio_payload = {
+        "symptoms": ["fatigue", "irregular_sugar_level", "polyuria", "dizziness"],
+        "vitals": {
+            "systolic_bp": 145.0,
+            "diastolic_bp": 92.0,
+            "glucose_level": 185.0,
+            "heart_rate": 78,
+            "temperature": 98.6,
+            "bmi": 28.6
+        },
+        "patient_allergies": ["Penicillin"],
+        "active_prescriptions": ["Amlodipine Besylate"],
+        "patient_conditions": ["Hypertension"],
+        "age": 54,
+        "gender": "Male",
+        "alpha_collaborative": 0.40,
+        "beta_sentiment": 0.15
+    }
+    res = client.post("/recommend/studio", json=studio_payload)
+    assert res.status_code == 200
+    studio_data = res.json()
+    assert studio_data.get("status") == "SUCCESS"
+    diag = studio_data.get("diagnosis", {})
+    top_preds = diag.get("top_predictions", [])
+    lead_pred = top_preds[0] if top_preds else {}
+    meds = studio_data.get("medications", [])
+    diet = studio_data.get("precision_nutrition", {})
+    workout = studio_data.get("lifestyle_exercise", {})
+    safety = studio_data.get("safety_audit", {})
+    spec = studio_data.get("specialist_referral", {})
+    print(f"Lead Diagnosis: {lead_pred.get('disease')} (Confidence: {lead_pred.get('confidence', 0)*100:.1f}%)")
+    print(f"Ranked Medications Count: {len(meds)}")
+    print(f"Diet Recommendations: {len(diet.get('recommended_foods', []))} foods to eat, {len(diet.get('foods_to_avoid', []))} foods to avoid")
+    print(f"Safety Status: {safety.get('overall_status')}, Screened Allergies: {safety.get('active_allergies_screened')}")
+    print(f"Matched Specialist: {spec.get('recommended_specialty')} (Urgency: {spec.get('consultation_urgency')})")
+    assert len(meds) > 0
+    assert len(diet.get("recommended_foods", [])) > 0
+
+    print("\n--- 11. Testing What-If Dynamic Biomarker Simulation ---")
+    sim_payload = {
+        "symptoms": ["fatigue", "irregular_sugar_level"],
+        "vitals": {
+            "systolic_bp": 170.0,
+            "diastolic_bp": 105.0,
+            "glucose_level": 240.0,
+            "heart_rate": 95,
+            "temperature": 99.0,
+            "bmi": 32.0
+        },
+        "patient_allergies": ["Penicillin"],
+        "active_prescriptions": ["Metformin HCl"]
+    }
+    res = client.post("/recommend/simulate", json=sim_payload)
+    assert res.status_code == 200
+    sim_data = res.json()
+    assert sim_data.get("status") == "SUCCESS"
+    sim_preds = sim_data.get("diagnosis", {}).get("top_predictions", [])
+    sim_lead = sim_preds[0] if sim_preds else {}
+    print(f"Simulation Condition: {sim_data.get('lead_disease')}, Prob: {sim_lead.get('confidence', 0)*100:.1f}%, Ranked Meds: {len(sim_data.get('medications', []))}")
+    assert sim_lead.get("confidence", 0) > 0
+
     print("\n==========================================")
-    print("ALL BACKEND & DATABASE TESTS PASSED 100%")
+    print("ALL 11 BACKEND & AI RECOMMENDATION TESTS PASSED 100%")
     print("==========================================")
 
 if __name__ == "__main__":
     run_tests()
+

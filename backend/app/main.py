@@ -29,6 +29,7 @@ app.include_router(auth.router, prefix="/api/v1")
 app.include_router(patient.router, prefix="/api/v1")
 app.include_router(prediction.router, prefix="/api/v1")
 app.include_router(recommendation.router, prefix="/api/v1")
+app.include_router(recommendation.router)  # Also mount at root for direct /recommend/presets etc.
 app.include_router(staff.router, prefix="/api/v1")
 app.include_router(admin.router, prefix="/api/v1")
 app.include_router(chat.router, prefix="/api/v1")

@@ -5,8 +5,11 @@ import Navbar from './components/common/Navbar';
 import Sidebar from './components/common/Sidebar';
 import AuthModal from './components/auth/AuthModal';
 import FloatingHealthAIAssistant from './components/common/FloatingHealthAIAssistant';
+import ErrorBoundary from './components/common/ErrorBoundary';
 
 // View components
+import RecommendationStudioView from './components/views/RecommendationStudioView';
+import WhatIfSimulatorView from './components/views/WhatIfSimulatorView';
 import HeroLandingView from './components/views/HeroLandingView';
 import PatientDashboardView from './components/views/PatientDashboardView';
 import SymptomCheckerModalView from './components/views/SymptomCheckerModalView';
@@ -22,7 +25,7 @@ import { useTheme } from './context/ThemeContext';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('hero'); // 'hero', 'dashboard', 'symptoms', 'recommendations', 'analysis', 'vitals', 'chat', 'doctor-platform', 'admin-platform'
+  const [activeTab, setActiveTab] = useState('recommendation-studio'); // Defaults to AI Recommendation Studio
   const [selectedPatientId, setSelectedPatientId] = useState('pat-001');
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const { user } = useAuth();
@@ -33,8 +36,87 @@ export default function App() {
     setActiveTab('dashboard');
   };
 
+  const renderCurrentView = () => {
+    switch (activeTab) {
+      case 'recommendation-studio':
+        return <RecommendationStudioView onOpenBooking={() => setActiveTab('hero')} />;
+
+      case 'what-if-simulator':
+        return <WhatIfSimulatorView onOpenBooking={() => setActiveTab('hero')} />;
+
+      case 'hero':
+      case 'home':
+      case 'landing':
+        return (
+          <HeroLandingView
+            setActiveTab={setActiveTab}
+            onOpenAuth={() => setAuthModalOpen(true)}
+            onSelectPatient={handleSelectPatient}
+          />
+        );
+
+      case 'dashboard':
+      case 'patient-dashboard':
+        return (
+          <PatientDashboardView
+            setActiveTab={setActiveTab}
+            selectedPatientId={selectedPatientId}
+            setSelectedPatientId={setSelectedPatientId}
+            onOpenAuth={() => setAuthModalOpen(true)}
+          />
+        );
+
+      case 'symptoms':
+      case 'symptom-checker':
+        return (
+          <SymptomCheckerModalView
+            onNavigateToRecos={(disease) => setActiveTab('recommendations')}
+          />
+        );
+
+      case 'recommendations':
+        return <RecommendationsView />;
+
+      case 'analysis':
+        return <HealthAnalysisView />;
+
+      case 'vitals':
+        return <VitalsTrackerView />;
+
+      case 'chat':
+        return <AskHealthAIChatView onNavigateTab={(tab) => setActiveTab(tab)} />;
+
+      case 'doctor-platform':
+      case 'review-queue':
+      case 'doctor-dashboard':
+      case 'clinician-station':
+        return (
+          <ClinicianQueueView
+            setActiveTab={setActiveTab}
+            onSelectPatient={handleSelectPatient}
+            onOpenAuth={() => setAuthModalOpen(true)}
+          />
+        );
+
+      case 'admin-platform':
+      case 'admin-console':
+      case 'admin-dashboard':
+        return (
+          <AdminConsoleView
+            setActiveTab={setActiveTab}
+            onSelectPatient={handleSelectPatient}
+            onOpenAuth={() => setAuthModalOpen(true)}
+          />
+        );
+
+      default:
+        // Graceful fallback: Never show blank page
+        return <RecommendationStudioView onOpenBooking={() => setActiveTab('hero')} />;
+    }
+  };
+
   return (
-    <>
+    <ErrorBoundary onNavigateHome={() => setActiveTab('recommendation-studio')}>
       {/* 1. Soft Launching & Loading Splash Screen */}
       {loading && <LoadingScreen onFinish={() => setLoading(false)} />}
 
@@ -54,66 +136,15 @@ export default function App() {
         {/* Full-Width Body Layout without restricting max-w-7xl */}
         <div className="flex-1 flex w-full">
           {/* Collapsible Sidebar (active on all views except hero landing) */}
-          {activeTab !== 'hero' && (
+          {activeTab !== 'hero' && activeTab !== 'home' && activeTab !== 'landing' && (
             <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
           )}
 
           {/* Main Dynamic View Content */}
           <main className="flex-1 w-full min-w-0 overflow-y-auto">
-            {activeTab === 'hero' && (
-              <HeroLandingView
-                setActiveTab={setActiveTab}
-                onOpenAuth={() => setAuthModalOpen(true)}
-                onSelectPatient={handleSelectPatient}
-              />
-            )}
-
-            {activeTab === 'dashboard' && (
-              <PatientDashboardView
-                setActiveTab={setActiveTab}
-                selectedPatientId={selectedPatientId}
-                setSelectedPatientId={setSelectedPatientId}
-                onOpenAuth={() => setAuthModalOpen(true)}
-              />
-            )}
-
-            {activeTab === 'symptoms' && (
-              <SymptomCheckerModalView
-                onNavigateToRecos={(disease) => setActiveTab('recommendations')}
-              />
-            )}
-
-            {activeTab === 'recommendations' && (
-              <RecommendationsView />
-            )}
-
-            {activeTab === 'analysis' && (
-              <HealthAnalysisView />
-            )}
-
-            {activeTab === 'vitals' && (
-              <VitalsTrackerView />
-            )}
-
-            {activeTab === 'chat' && (
-              <AskHealthAIChatView onNavigateTab={(tab) => setActiveTab(tab)} />
-            )}
-
-            {(activeTab === 'doctor-platform' || activeTab === 'review-queue') && (
-              <ClinicianQueueView
-                setActiveTab={setActiveTab}
-                onSelectPatient={handleSelectPatient}
-                onOpenAuth={() => setAuthModalOpen(true)}
-              />
-            )}
-
-            {(activeTab === 'admin-platform' || activeTab === 'admin-console') && (
-              <AdminConsoleView
-                setActiveTab={setActiveTab}
-                onSelectPatient={handleSelectPatient}
-                onOpenAuth={() => setAuthModalOpen(true)}
-              />
-            )}
+            <ErrorBoundary onNavigateHome={() => setActiveTab('recommendation-studio')}>
+              {renderCurrentView()}
+            </ErrorBoundary>
           </main>
         </div>
 
@@ -126,6 +157,7 @@ export default function App() {
         {/* Omnipresent Floating HealthAI Clinical Assistant */}
         <FloatingHealthAIAssistant onNavigateTab={setActiveTab} />
       </div>
-    </>
+    </ErrorBoundary>
   );
 }
+

@@ -3,7 +3,7 @@ import {
   HeartPulse, Shield, Sparkles, Activity, Users, Stethoscope, ArrowRight,
   CheckCircle2, Clock, MapPin, Phone, Mail, Award, Building2, Bed,
   Syringe, Pill, Star, ChevronRight, Check, Send, AlertCircle, Calendar, X,
-  Play, Pause, Volume2, VolumeX, Maximize2, RotateCcw, MonitorPlay
+  Play, Pause, Volume2, VolumeX, Maximize2, RotateCcw, MonitorPlay, Zap
 } from 'lucide-react';
 import VideoBackground from '../common/VideoBackground';
 
@@ -232,31 +232,39 @@ export default function HeroLandingView({ onOpenAuth, setActiveTab, onSelectPati
           {/* Clinical Intelligence Badge */}
           <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs sm:text-sm font-black shadow-sm">
             <Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
-            <span>AI-DRIVEN PRECISION HEALTHCARE & HOSPITAL INTELLIGENCE</span>
+            <span>AI-ML POWERED PERSONALIZED HEALTHCARE & MEDICINE RECOMMENDATION SYSTEM</span>
           </div>
 
           {/* Main Title */}
           <h1 className="text-4xl sm:text-6xl xl:text-7xl font-black text-slate-900 tracking-tight leading-tight max-w-5xl">
-            Personalized Medical Care,{' '}
+            Precision Healthcare & Medicine,{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-600">
-              Powered by Clinical AI
+              Recommended by Clinical AI
             </span>
           </h1>
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg xl:text-xl text-slate-600 font-medium max-w-3xl leading-relaxed">
-            Real-time diagnostic intelligence for patients, unified medication & surgical workflows for doctors & nurses, and 360° enterprise visibility for hospital administrators.
+            Personalized treatment recommendations across 132 symptoms and physiological biomarkers. Features multi-class ML disease diagnosis, tri-tier hybrid medication ranking, and non-bypass drug interaction safety shields.
           </p>
 
           {/* CTA Action Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <button
-              onClick={() => setIsBookingModalOpen(true)}
-              className="px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-black text-sm shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center gap-2.5 border-2 border-white/50"
+              onClick={() => setActiveTab('recommendation-studio')}
+              className="px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-black text-sm shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center gap-2.5 border-2 border-white/50"
             >
-              <Calendar className="w-5 h-5" />
-              <span>Book Doctor Consultation</span>
+              <Sparkles className="w-5 h-5 fill-white" />
+              <span>Launch AI Recommendation Studio</span>
               <ArrowRight className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={() => setActiveTab('what-if-simulator')}
+              className="px-8 py-4 rounded-2xl bg-cyan-50 hover:bg-cyan-100 text-cyan-800 font-extrabold text-sm border-2 border-cyan-200 shadow-md transition-all flex items-center gap-2"
+            >
+              <Zap className="w-5 h-5 text-cyan-600" />
+              <span>Open What-If Simulator</span>
             </button>
 
             <button
@@ -264,35 +272,27 @@ export default function HeroLandingView({ onOpenAuth, setActiveTab, onSelectPati
               className="px-8 py-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-sm border-2 border-slate-200 shadow-md hover:shadow-lg transition-all flex items-center gap-2"
             >
               <Users className="w-5 h-5 text-blue-600" />
-              <span>Explore Patient Health Portal</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('doctor-platform')}
-              className="px-8 py-4 rounded-2xl bg-cyan-50 hover:bg-cyan-100 text-cyan-800 font-extrabold text-sm border-2 border-cyan-200 shadow-md transition-all flex items-center gap-2"
-            >
-              <Stethoscope className="w-5 h-5 text-cyan-600" />
-              <span>Doctor & Staff Station</span>
+              <span>Explore Patient Profiles</span>
             </button>
           </div>
 
           {/* Live Hospital Telemetry Badges */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 pt-8 w-full max-w-4xl border-t border-slate-200/80">
             <div className="p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xs">
-              <p className="text-2xl sm:text-3xl font-black text-blue-600">1,000+</p>
-              <p className="text-xs text-slate-600 font-bold mt-0.5">Active Inpatients / Outpatients</p>
+              <p className="text-2xl sm:text-3xl font-black text-blue-600">132</p>
+              <p className="text-xs text-slate-600 font-bold mt-0.5">Symptom Vectors Classified</p>
             </div>
             <div className="p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xs">
-              <p className="text-2xl sm:text-3xl font-black text-cyan-600">180+</p>
-              <p className="text-xs text-slate-600 font-bold mt-0.5">Expert Specialist Doctors</p>
+              <p className="text-2xl sm:text-3xl font-black text-cyan-600">104</p>
+              <p className="text-xs text-slate-600 font-bold mt-0.5">Verified Medical Compounds</p>
             </div>
             <div className="p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xs">
               <p className="text-2xl sm:text-3xl font-black text-emerald-600">96.8%</p>
-              <p className="text-xs text-slate-600 font-bold mt-0.5">Clinical Diagnostic Accuracy</p>
+              <p className="text-xs text-slate-600 font-bold mt-0.5">Diagnostic Model Accuracy</p>
             </div>
             <div className="p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xs">
-              <p className="text-2xl sm:text-3xl font-black text-purple-600">24/7</p>
-              <p className="text-xs text-slate-600 font-bold mt-0.5">OT & Emergency Care</p>
+              <p className="text-2xl sm:text-3xl font-black text-purple-600">0.00%</p>
+              <p className="text-xs text-slate-600 font-bold mt-0.5">DDI Interaction Bypass</p>
             </div>
           </div>
         </div>

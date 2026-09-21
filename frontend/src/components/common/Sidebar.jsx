@@ -10,11 +10,25 @@ export default function Sidebar({ activeTab, setActiveTab }) {
 
   const navigationItems = [
     {
-      id: 'hero',
-      label: 'Home & Hospital Landing',
-      icon: HeartPulse,
-      badge: 'Main',
+      id: 'recommendation-studio',
+      label: 'AI Recommendation Studio',
+      icon: Sparkles,
+      badge: 'Hero AI',
       color: 'text-blue-600'
+    },
+    {
+      id: 'what-if-simulator',
+      label: 'What-If Biomarker Simulator',
+      icon: Activity,
+      badge: 'Live',
+      color: 'text-cyan-600'
+    },
+    {
+      id: 'hero',
+      label: 'System Overview & Demo',
+      icon: HeartPulse,
+      badge: 'Preview',
+      color: 'text-indigo-600'
     },
     {
       id: 'dashboard',

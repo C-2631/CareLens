@@ -104,12 +104,37 @@ class RecommendationCandidate(BaseModel):
     sentiment_score: float
     effectiveness_rating: float
     safety: Dict[str, Any]
+    generic_substitute: Optional[Dict[str, Any]] = None
 
 class RecommendationResponse(BaseModel):
     disease: str
     total_candidates: int
     recommendations: List[RecommendationCandidate]
     disclaimer: str = "Candidate treatments displayed for clinical review and educational discussion."
+
+# --- Comprehensive Recommendation Studio Schemas ---
+class ComprehensiveStudioRequest(BaseModel):
+    symptoms: List[str] = []
+    vitals: Optional[VitalsData] = None
+    patient_allergies: Optional[List[str]] = []
+    active_prescriptions: Optional[List[str]] = []
+    patient_conditions: Optional[List[str]] = []
+    age: Optional[int] = 35
+    gender: Optional[str] = "Female"
+    alpha_collaborative: Optional[float] = 0.40
+    beta_sentiment: Optional[float] = 0.15
+
+class ComprehensiveStudioResponse(BaseModel):
+    status: str = "SUCCESS"
+    diagnosis: Dict[str, Any]
+    medications: List[Dict[str, Any]]
+    lifestyle_interventions: List[Dict[str, Any]]
+    precision_nutrition: Dict[str, Any]
+    lifestyle_exercise: Dict[str, Any]
+    safety_audit: Dict[str, Any]
+    specialist_referral: Dict[str, Any]
+    algorithm_explainability: Dict[str, Any]
+    disclaimer: str = "AI Clinical Decision-Support System recommendation. Verify with licensed physician."
 
 # --- Clinician Review Queue Schemas ---
 class CaseReviewActionRequest(BaseModel):

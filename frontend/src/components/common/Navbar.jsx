@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   HeartPulse, Search, Bell, User, LogOut, ShieldAlert,
   Stethoscope, Settings, ChevronDown, Check, Building2,
-  Pill, Activity, Sparkles, Clock, X, ArrowRight
+  Pill, Activity, Sparkles, Clock, X, ArrowRight, Zap
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -131,38 +131,66 @@ export default function Navbar({ onOpenAuth, activeTab, setActiveTab, onSelectPa
           </div>
 
           {/* Primary View Navigation Tabs */}
-          <div className="hidden lg:flex items-center gap-1.5 text-xs sm:text-sm font-bold text-slate-600">
+          <div className="hidden lg:flex items-center gap-1.5 text-xs font-bold text-slate-600">
             <button
-              onClick={() => setActiveTab('hero')}
-              className={`px-3.5 py-2 rounded-xl transition-all ${
-                activeTab === 'hero' ? 'text-blue-600 font-black bg-blue-50 border border-blue-100' : 'hover:text-blue-600 hover:bg-slate-50'
+              onClick={() => setActiveTab('recommendation-studio')}
+              className={`px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+                activeTab === 'recommendation-studio'
+                  ? 'text-blue-700 font-black bg-blue-50 border border-blue-200 shadow-xs'
+                  : 'hover:text-blue-600 hover:bg-slate-50 text-slate-700'
               }`}
             >
-              Hospital Landing
+              <Sparkles className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
+              <span>AI Recommendation Studio</span>
+              <span className="px-1.5 py-0.2 rounded-md bg-blue-600 text-white font-mono text-[9px] font-black">AI</span>
             </button>
+
+            <button
+              onClick={() => setActiveTab('what-if-simulator')}
+              className={`px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+                activeTab === 'what-if-simulator'
+                  ? 'text-cyan-800 font-black bg-cyan-50 border border-cyan-200 shadow-xs'
+                  : 'hover:text-cyan-600 hover:bg-slate-50 text-slate-700'
+              }`}
+            >
+              <Zap className="w-3.5 h-3.5 text-cyan-600" />
+              <span>What-If Simulator</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('hero')}
+              className={`px-3 py-2 rounded-xl transition-all ${
+                activeTab === 'hero' ? 'text-slate-900 font-black bg-slate-100 border border-slate-200' : 'hover:text-slate-900 hover:bg-slate-50'
+              }`}
+            >
+              Overview
+            </button>
+
             <button
               onClick={() => setActiveTab('dashboard')}
-              className={`px-3.5 py-2 rounded-xl transition-all ${
+              className={`px-3 py-2 rounded-xl transition-all ${
                 activeTab === 'dashboard' ? 'text-blue-600 font-black bg-blue-50 border border-blue-100' : 'hover:text-blue-600 hover:bg-slate-50'
               }`}
             >
-              Patient Health Portal
+              Patient Portal
             </button>
+
             <button
               onClick={() => setActiveTab('doctor-platform')}
-              className={`px-3.5 py-2 rounded-xl transition-all ${
+              className={`px-3 py-2 rounded-xl transition-all ${
                 activeTab === 'doctor-platform' ? 'text-cyan-700 font-black bg-cyan-50 border border-cyan-100' : 'hover:text-cyan-600 hover:bg-slate-50'
               }`}
             >
-              Clinician & Nurse Station
+              Clinician Station
             </button>
+
             <button
               onClick={() => setActiveTab('admin-platform')}
-              className={`px-3.5 py-2 rounded-xl transition-all ${
+              className={`px-3 py-2 rounded-xl transition-all ${
                 activeTab === 'admin-platform' ? 'text-purple-700 font-black bg-purple-50 border border-purple-100' : 'hover:text-purple-600 hover:bg-slate-50'
               }`}
             >
-              Hospital Admin Console
+              Admin Console
             </button>
           </div>
 
