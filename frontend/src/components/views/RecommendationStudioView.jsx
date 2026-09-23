@@ -420,7 +420,7 @@ export default function RecommendationStudioView({ onOpenBooking }) {
                             : 'bg-slate-50 text-slate-600 border-slate-200 hover:border-rose-300'
                         )}
                       >
-                        {isSelected ? '🛡️ ' : ''}{alg}
+                        {alg}
                       </button>
                     );
                   })}
@@ -443,7 +443,7 @@ export default function RecommendationStudioView({ onOpenBooking }) {
                             : 'bg-slate-50 text-slate-600 border-slate-200 hover:border-indigo-300'
                         )}
                       >
-                        {isSelected ? '💊 ' : ''}{med}
+                        {med}
                       </button>
                     );
                   })}

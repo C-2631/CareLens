@@ -804,7 +804,7 @@ export default function PatientDashboardView({
                 }`}
               >
                 {isSpeaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-blue-600" />}
-                <span>{isSpeaking ? 'Stop Audio' : '🔊 Listen to Regimen'}</span>
+                <span>{isSpeaking ? 'Stop Audio' : 'Listen to Regimen'}</span>
               </button>
 
               <span className="px-3.5 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-extrabold border border-blue-100">

@@ -230,7 +230,7 @@ export default function LabReportsDiagnosticPanel({ patientName = 'Priya Sharma'
               </div>
               <div className="flex justify-between text-[10px] text-slate-400 font-bold">
                 <span>Ref: {bio.refRange}</span>
-                <span className="text-emerald-700">In Range ✓</span>
+                <span className="text-emerald-700">In Range</span>
               </div>
             </div>
           </div>

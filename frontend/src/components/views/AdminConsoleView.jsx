@@ -3,7 +3,7 @@ import {
   Building2, Users, Stethoscope, Pill, Activity, ShieldAlert,
   Search, Filter, CheckCircle2, AlertTriangle, Clock, Calendar,
   RefreshCw, ChevronLeft, ChevronRight, UserCheck, Shield, Sparkles,
-  Award, Eye, Edit3, Trash2, Cpu, ArrowUpRight, BarChart3, PieChart
+  Award, Eye, Edit3, Trash2, Cpu, ArrowUpRight, BarChart3, PieChart, X
 } from 'lucide-react';
 import { adminApi } from '../../services/api';
 
@@ -650,9 +650,9 @@ export default function AdminConsoleView({ setActiveTab, onSelectPatient }) {
               <h3 className="text-base font-black text-slate-900">Reassign Attending Specialist</h3>
               <button
                 onClick={() => setSelectedPatientForAssign(null)}
-                className="text-slate-400 hover:text-slate-600 font-bold"
+                className="text-slate-400 hover:text-slate-600 transition-colors"
               >
-                ✕
+                <X className="w-5 h-5" />
               </button>
             </div>
 

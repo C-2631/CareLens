@@ -395,13 +395,13 @@ export default function HeroLandingView({ onOpenAuth, setActiveTab, onSelectPati
                 {/* Chapter Highlights */}
                 <div className="hidden lg:flex items-center gap-2 text-[11px] font-semibold text-slate-300">
                   <span className="px-2.5 py-1 rounded-lg bg-white/10 text-white border border-white/10">
-                    🔬 AI Triage & SHAP
+                    AI Triage & SHAP
                   </span>
                   <span className="px-2.5 py-1 rounded-lg bg-white/10 text-white border border-white/10">
-                    💊 DDI Safety Filter
+                    DDI Safety Filter
                   </span>
                   <span className="px-2.5 py-1 rounded-lg bg-white/10 text-white border border-white/10">
-                    📊 1,000 Patient Census
+                    1,000 Patient Census
                   </span>
                 </div>
 

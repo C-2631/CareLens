@@ -229,7 +229,7 @@ export default function WhatIfSimulatorView({ onOpenBooking }) {
                               : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
                           )}
                         >
-                          {isActive ? '✓ ' : '+ '}{sym.replace(/_/g, ' ')}
+                          {isActive ? 'Active: ' : '+ '}{sym.replace(/_/g, ' ')}
                         </button>
                       );
                     })}
@@ -245,7 +245,7 @@ export default function WhatIfSimulatorView({ onOpenBooking }) {
                         : 'bg-slate-50 border-slate-200 text-slate-600'
                     )}
                   >
-                    <span className="block text-xs">{hasPenicillinAllergy ? '🛡️ Penicillin Allergy ON' : '○ No Penicillin Allergy'}</span>
+                    <span className="block text-xs">{hasPenicillinAllergy ? 'Penicillin Allergy (Active)' : 'No Penicillin Allergy'}</span>
                   </button>
 
                   <button
@@ -256,7 +256,7 @@ export default function WhatIfSimulatorView({ onOpenBooking }) {
                         : 'bg-slate-50 border-slate-200 text-slate-600'
                     )}
                   >
-                    <span className="block text-xs">{isOnWarfarin ? '💊 On Warfarin (DDI Active)' : '○ No Warfarin'}</span>
+                    <span className="block text-xs">{isOnWarfarin ? 'On Warfarin (DDI Active)' : 'No Warfarin'}</span>
                   </button>
                 </div>
               </div>

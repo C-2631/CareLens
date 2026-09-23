@@ -143,7 +143,7 @@ export default function RecommendationResultsPanel({
                   ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                   : 'bg-amber-50 text-amber-700 border border-amber-200'
               )}>
-                {safetyAudit.overall_status === 'ALL_CLEAR' ? '✅ Verified Safe' : '⚠️ Alert Screened'}
+                {safetyAudit.overall_status === 'ALL_CLEAR' ? 'Verified Safe' : 'Alert Screened'}
               </span>
             </div>
 
@@ -154,7 +154,7 @@ export default function RecommendationResultsPanel({
                 {(safetyAudit.active_allergies_screened || []).length > 0 ? (
                   safetyAudit.active_allergies_screened.map((alg, i) => (
                     <span key={i} className="px-2 py-0.5 rounded-md bg-rose-50 border border-rose-200 text-rose-700 font-bold text-[10px]">
-                      🛡️ Allergy: {alg}
+                      Allergy: {alg}
                     </span>
                   ))
                 ) : (
@@ -163,7 +163,7 @@ export default function RecommendationResultsPanel({
                 {(safetyAudit.active_prescriptions_screened || []).length > 0 && (
                   safetyAudit.active_prescriptions_screened.map((rx, i) => (
                     <span key={i} className="px-2 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-blue-700 font-bold text-[10px]">
-                      💊 Active: {rx}
+                      Active: {rx}
                     </span>
                   ))
                 )}
@@ -280,7 +280,7 @@ export default function RecommendationResultsPanel({
                           ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : 'bg-rose-50 text-rose-700 border border-rose-200'
                       )}>
-                        {isSafe ? '✅ Safe to Prescribe' : '🚫 Flagged'}
+                        {isSafe ? 'Safe to Prescribe' : 'Flagged'}
                       </span>
                     </div>
 

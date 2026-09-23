@@ -337,7 +337,7 @@ export default function ClinicianQueueView({ setActiveTab, onSelectPatient }) {
               onClick={() => setAlertVisible(false)}
               className="text-amber-700 hover:text-amber-900 text-xs font-bold px-2 py-1"
             >
-              Dismiss ✕
+              Dismiss
             </button>
           </div>
         )}
@@ -566,7 +566,7 @@ export default function ClinicianQueueView({ setActiveTab, onSelectPatient }) {
                               : 'bg-amber-100 text-amber-800 hover:bg-amber-200 border border-amber-300'
                           }`}
                         >
-                          {item.is_taken ? '✓ Dose Administered' : 'Mark Administered'}
+                          {item.is_taken ? 'Dose Administered' : 'Mark Administered'}
                         </button>
                       </td>
                     </tr>
